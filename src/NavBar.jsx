@@ -17,8 +17,8 @@ const NavBar = () => {
           <ul className="navbar-nav">
             <li className="nav-item">
               <Link 
-                to="/meals" 
-                className={`nav-link btn ${location.pathname === '/meals' ? 'active' : ''}`}
+                to="/" 
+                className={`nav-link btn ${location.pathname === '/' ? 'active' : ''}`}
               >
                 Add Meals
               </Link>
