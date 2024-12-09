@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Calendar from 'react-calendar';
-import {BrowserRouter as Router, Route, Routes} from 'react-router-dom'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import 'react-calendar/dist/Calendar.css';
 import NavBar from './NavBar';
 import MealTracker from './MealTracker';
@@ -12,33 +12,37 @@ const App = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [nutritionData, setNutritionData] = useState({});
 
-  const [meals, setMeals] = useState([
+  // Default meals
+  const initialMeals = [
     {
-      id: 1, 
-      name: "Breakfast", 
+      id: 1,
+      name: "Breakfast",
       icon: 'Coffee',
       foods: [
         { name: "Oatmeal", calories: 150, protein: 6, carbs: 27, fat: 3 },
         { name: "Banana", calories: 105, protein: 1, carbs: 27, fat: 0 }
       ]
     },
-    { 
-      id: 2, 
-      name: "Lunch", 
+    {
+      id: 2,
+      name: "Lunch",
       icon: 'Sun',
       foods: [
         { name: "Chicken Salad", calories: 350, protein: 25, carbs: 10, fat: 12 }
       ]
     },
-    { 
-      id: 3, 
-      name: "Dinner", 
+    {
+      id: 3,
+      name: "Dinner",
       icon: 'Moon',
       foods: [
         { name: "Grilled Salmon", calories: 400, protein: 30, carbs: 0, fat: 15 }
       ]
     }
-  ]);
+  ];
+
+  // Get meals for the selected date or use the default meals
+  const mealsForSelectedDate = nutritionData[selectedDate.toDateString()] || initialMeals;
 
   // Calculate daily totals
   const getDailyTotals = (mealData) => {
@@ -59,8 +63,9 @@ const App = () => {
     }, { calories: 0, protein: 0, carbs: 0, fat: 0 });
   };
 
+  // Add food to meals for the selected date
   const addFood = (mealId, newFood) => {
-    const updatedMeals = meals.map(meal => {
+    const updatedMeals = mealsForSelectedDate.map(meal => {
       if (meal.id === mealId) {
         return {
           ...meal,
@@ -75,9 +80,8 @@ const App = () => {
       }
       return meal;
     });
-    
-    setMeals(updatedMeals);
 
+    // Save updated meals for the selected date
     const dateKey = selectedDate.toDateString();
     setNutritionData(prevData => ({
       ...prevData,
@@ -85,8 +89,9 @@ const App = () => {
     }));
   };
 
+  // Remove food from meals for the selected date
   const removeFood = (mealId, foodName) => {
-    const updatedMeals = meals.map(meal => {
+    const updatedMeals = mealsForSelectedDate.map(meal => {
       if (meal.id === mealId) {
         return {
           ...meal,
@@ -95,9 +100,8 @@ const App = () => {
       }
       return meal;
     });
-    
-    setMeals(updatedMeals);
 
+    // Save updated meals for the selected date
     const dateKey = selectedDate.toDateString();
     setNutritionData(prevData => ({
       ...prevData,
@@ -105,34 +109,28 @@ const App = () => {
     }));
   };
 
-
   return (
-    <Router> {/* Wrap the app with Router */}
+    <Router>
       <NavBar activeTab={activeTab} setActiveTab={setActiveTab} />
-
-       {/* Calendar */}
-       <div className="d-flex justify-content-center mb-4">
-          <Calendar
-            value={selectedDate}
-            onChange={setSelectedDate}
-          />
-        </div>
-      
+      <div className="d-flex justify-content-center mb-4">
+        <Calendar
+          value={selectedDate}
+          onChange={setSelectedDate}
+        />
+      </div>
       <div className="container">
-        {/* Use Routes for handling different paths */}
         <Routes>
           <Route 
             path="/" 
             element={
               <MealTracker 
-                meals={meals} 
+                meals={mealsForSelectedDate} 
                 addFood={addFood} 
                 removeFood={removeFood} 
                 getDailyTotals={getDailyTotals} 
               />
             } 
           />
-          
           <Route 
             path="/summary" 
             element={
