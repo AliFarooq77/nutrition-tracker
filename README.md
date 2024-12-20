@@ -30,18 +30,17 @@ To get the project running locally, follow these steps:
 1. **Clone the repository**:
 
    ```bash
-   git clone https://github.com/your-username/nutrition-tracker.git
+   git clone https://github.com/AliFarooq77/nutrition-tracker.git
    ```
-`
 2. **Navigate to the project directory**:
-	```bash
-	cd nutrition-tracker
-	```
+   ```bash
+   cd nutrition-tracker
+   ```
 3. **Install dependencies:**
-	```bash
-	npm install
-	```
+   ```bash
+   npm install
+   ```
 4. **Start the server**:
-	```bash
-	npm start
-	```
+   ```bash
+   npm start
+   ```
