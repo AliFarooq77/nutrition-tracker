@@ -136,6 +136,7 @@ const App = () => {
             element={
               <DailySummary 
                 nutritionData={nutritionData} 
+                selectedDate={selectedDate}
                 getDailyTotals={getDailyTotals} 
               />
             } 
