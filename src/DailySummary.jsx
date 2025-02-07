@@ -1,8 +1,9 @@
 import React from 'react';
+import {initialMeals} from './App.js'
 import { UtensilsCrossed } from 'lucide-react';
 
 const DailySummary = ({ nutritionData, selectedDate, getDailyTotals }) => {
-  const selectedDayData = nutritionData[selectedDate.toDateString()] || [];
+  const selectedDayData = nutritionData[selectedDate.toDateString()] || initialMeals;
   const dailyTotals = getDailyTotals(selectedDayData);
   
   return (

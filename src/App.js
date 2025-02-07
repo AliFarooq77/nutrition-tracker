@@ -7,39 +7,39 @@ import MealTracker from './MealTracker';
 import DailySummary from './DailySummary';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+// Default meals
+export const initialMeals = [
+  {
+    id: 1,
+    name: "Breakfast",
+    icon: 'Coffee',
+    foods: [
+      { name: "Oatmeal", calories: 150, protein: 6, carbs: 27, fat: 3 },
+      { name: "Banana", calories: 105, protein: 1, carbs: 27, fat: 0 }
+    ]
+  },
+  {
+    id: 2,
+    name: "Lunch",
+    icon: 'Sun',
+    foods: [
+      { name: "Chicken Salad", calories: 350, protein: 25, carbs: 10, fat: 12 }
+    ]
+  },
+  {
+    id: 3,
+    name: "Dinner",
+    icon: 'Moon',
+    foods: [
+      { name: "Grilled Salmon", calories: 400, protein: 30, carbs: 0, fat: 15 }
+    ]
+  }
+];
+
 const App = () => {
   const [activeTab, setActiveTab] = useState('meals');
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [nutritionData, setNutritionData] = useState({});
-
-  // Default meals
-  const initialMeals = [
-    {
-      id: 1,
-      name: "Breakfast",
-      icon: 'Coffee',
-      foods: [
-        { name: "Oatmeal", calories: 150, protein: 6, carbs: 27, fat: 3 },
-        { name: "Banana", calories: 105, protein: 1, carbs: 27, fat: 0 }
-      ]
-    },
-    {
-      id: 2,
-      name: "Lunch",
-      icon: 'Sun',
-      foods: [
-        { name: "Chicken Salad", calories: 350, protein: 25, carbs: 10, fat: 12 }
-      ]
-    },
-    {
-      id: 3,
-      name: "Dinner",
-      icon: 'Moon',
-      foods: [
-        { name: "Grilled Salmon", calories: 400, protein: 30, carbs: 0, fat: 15 }
-      ]
-    }
-  ];
 
   // Get meals for the selected date or use the default meals
   const mealsForSelectedDate = nutritionData[selectedDate.toDateString()] || initialMeals;
